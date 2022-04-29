@@ -1,4 +1,3 @@
-import 'package:inpaket/models/city.dart';
 
 class Users {
   Users();
@@ -16,7 +15,6 @@ class Users {
   late String token;
   late String tokenType;
   late String refreshToken;
-  late City city;
 
   Users.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,6 +31,5 @@ class Users {
     token = json['token'];
     tokenType = json['token_type'];
     refreshToken = json['refresh_token'];
-    city = City.fromJson(json['city']);
   }
 }

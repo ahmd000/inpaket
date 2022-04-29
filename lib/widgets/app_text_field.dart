@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AppTextField extends StatelessWidget {
-
   final TextEditingController textEditingController;
   final TextInputType textInputType;
   final String hint;
@@ -25,19 +25,16 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-
-      textDirection: TextDirection.ltr,
       textCapitalization: TextCapitalization.none,
       keyboardType: textInputType,
       style: TextStyle(color: textColor),
       obscureText: obscureText,
       controller: textEditingController,
+
       decoration: InputDecoration(
         contentPadding: EdgeInsetsDirectional.zero,
-
         hintText: hint,
         hintMaxLines: 1,
-        hintTextDirection: TextDirection.ltr,
         hintStyle: TextStyle(color: Colors.grey),
         prefixIcon: Icon(prefixIcon),
         suffixIcon: Icon(suffixIcon),
@@ -62,4 +59,43 @@ class AppTextField extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget textField(
+    {text,
+    TextEditingController? controller,
+    Function? validator,
+    TextInputType inputType = TextInputType.text}) {
+  return Container(
+    height: 48,
+    margin: EdgeInsets.only(bottom: Get.height * 0.02),
+    child: TextFormField(
+      keyboardType: inputType,
+      controller: controller,
+      validator: (input) => validator!(input),
+      decoration: InputDecoration(
+          hintText: text,
+          errorStyle: TextStyle(fontSize: 0),
+          contentPadding: EdgeInsets.only(top: 10, left: 10),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0))),
+    ),
+  );
+}
+
+Widget elevatedButton({text, Function? onpress}) {
+  return ElevatedButton(
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+    ),
+    onPressed: () {
+      onpress!();
+    },
+    child: Text(
+      text,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+  );
 }

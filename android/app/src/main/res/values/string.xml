@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">InPaket</string>
+    <string name="facebook_app_id">3197528797185763</string>
+    <string name="fb_login_protocol_scheme">fb3197528797185763</string>
+    <string name="facebook_client_token">881020995d89429f558cfcd3c1eecb81</string>
+</resources>
+

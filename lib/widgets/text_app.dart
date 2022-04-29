@@ -4,18 +4,20 @@ import 'package:flutter/material.dart';
 class TextApp extends StatelessWidget {
   final String text;
   final FontWeight fontWeight;
-  final double fontSize;
+  final double? fontSize;
   final TextAlign textAlign;
   final double height;
-  final Color fontColor;
+  final int? maxLine;
+  final Color? fontColor;
 
   TextApp(
       { required this.text,
         this.fontWeight = FontWeight.normal,
-        required this.fontSize,
+         this.fontSize,
         this.textAlign = TextAlign.center,
         this.height = 1,
-        required this.fontColor});
+        this.maxLine ,
+         this.fontColor});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class TextApp extends StatelessWidget {
       text,
       softWrap: true,
       textAlign: textAlign,
+      maxLines: maxLine,
       style: TextStyle(
         fontWeight: fontWeight,
         fontSize: fontSize,

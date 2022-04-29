@@ -11,14 +11,22 @@ String borderView2 = "assets/images/border_view2.png";
 String borderView3 = "assets/images/border_view3.png";
 String facebookLoginIcon = "assets/images/facebookLogin.png";
 String googleLoginIcon = "assets/images/googleLogo.png";
-String productView = "assets/images/product.png";
 String noSuggestion = "assets/images/no_suggestion.png";
 String profileImage = "assets/images/profileImage.png";
 String verifyLogo = "assets/images/verify_logo.png";
 String banner = "assets/images/banner.png";
+String addImage = "assets/images/oo.png";
+String noData = "assets/images/noData.png";
 
 ///Colors
 
-final Color backgroundColor = Color(0xffC69C6C);
-final Color gradingColor1 = Color(0xff13110e);
+ Color mainColor = const Color(0xffc69c6c);
+const Color gradingColor1 = Color(0xff13110e);
 
+/// first time install App
+ bool firstTime = true ;
+
+
+/// Loading Page
+
+bool isLoading = false ;

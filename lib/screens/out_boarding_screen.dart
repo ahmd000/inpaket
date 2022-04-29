@@ -1,7 +1,9 @@
 import 'package:easy_localization/src/public_ext.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
+import 'package:inpaket/FirebaseServices/google_sign_in_services.dart';
 import 'package:inpaket/prefs/shared_pref_controller.dart';
 import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/out_boarding_contents/out_boarding_content1.dart';
@@ -38,7 +40,7 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: mainColor,
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,10 +50,13 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
               child: Visibility(
                 visible: _currentPage < 2,
                 replacement: TextButton(
-                  onPressed: () => SharedPrefController().loggedIn == true
-                      ? Navigator.pushReplacementNamed(context, '/home_screen')
-                      : Navigator.pushReplacementNamed(
-                          context, '/login_screen'),
+                  onPressed: () {
+                    if (FirebaseAuth.instance.currentUser?.uid != null) {
+                      Navigator.pushReplacementNamed(context, '/home_screen');
+                    } else {
+                      Navigator.pushReplacementNamed(context, '/login_screen');
+                    }
+                  },
                   child: TextApp(
                     text: LocaleKeys.start.tr(),
                     fontColor: gradingColor1,
@@ -125,12 +130,16 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
                   child: IconButton(
                     onPressed: () {
                       _pageController.nextPage(
-                          duration: const Duration(seconds: 1),
-                          curve: Curves.easeIn,);
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.easeIn,
+                      );
                     },
-                    icon:  Icon(Icons.arrow_forward_ios, color: _currentPage > 0
-                        ? Colors.amber.shade900
-                        : gradingColor1,),
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      color: _currentPage > 0
+                          ? Colors.amber.shade900
+                          : gradingColor1,
+                    ),
                   ),
                 ),
               ],
@@ -155,10 +164,21 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ElevatedButton(
-                  onPressed: () =>
-                      Navigator.pushReplacementNamed(context, '/login_screen'),
-                  child:  TextApp(text:LocaleKeys.start.tr(), fontColor: gradingColor1, fontSize: 25.sp,),
+                  onPressed: () {
+                    if (FirebaseAuth.instance.currentUser?.uid != null) {
+                      Navigator.pushReplacementNamed(context, '/home_screen');
+                    } else {
+                      Navigator.pushReplacementNamed(context, '/login_screen');
+                    }
+                  },
+                  child: TextApp(
+                    text: LocaleKeys.start.tr(),
+                    fontColor: gradingColor1,
+                    fontSize: 25.sp,
+                  ),
                   style: ElevatedButton.styleFrom(
+                    primary: Colors.transparent,
+                    elevation: 0.0,
                     minimumSize: const Size(double.infinity, 50),
                   ),
                 ),

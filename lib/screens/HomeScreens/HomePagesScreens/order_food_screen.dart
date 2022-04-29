@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inpaket/Configers/configers.dart';
 
 class OrderFoodScreen extends StatefulWidget {
   const OrderFoodScreen({Key? key}) : super(key: key);
@@ -11,7 +12,11 @@ class _OrderFoodScreenState extends State<OrderFoodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.cyan,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(noData)),
+        ),
+      ),
     );
   }
 }

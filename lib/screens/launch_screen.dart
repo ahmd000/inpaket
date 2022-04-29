@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
+import 'package:inpaket/FirebaseServices/google_sign_in_services.dart';
 import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
@@ -19,7 +20,8 @@ class _LaunchScreenState extends State<LaunchScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/out_boarding_screen');
+       Navigator.pushReplacementNamed(context, '/out_boarding_screen') ;
+
     });
   }
 
@@ -28,7 +30,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
     return Scaffold(
       body: Container(
         alignment: AlignmentDirectional.center,
-        color: backgroundColor,
+        color: mainColor,
         child: Column(
           children: [
             SizedBox(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:inpaket/Configers/configers.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget EmbityCategory() => Column(
+Widget emptyCategory() => Column(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -15,7 +15,7 @@ Widget EmbityCategory() => Column(
         )
       ],
     );
-Widget SearchCategory() => Column(
+Widget searchCategory() => Column(
   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [

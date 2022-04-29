@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:inpaket/helpers/helpers.dart';
+import 'package:inpaket/helpers/snack_bar_helpers.dart';
 import 'package:inpaket/widgets/app_text_field.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen>
-    with Helpers {
+    with SnackBarHelpers {
   late TextEditingController _currentPasswordTextEditingController;
   late TextEditingController _newPasswordTextEditingController;
   late TextEditingController _newPasswordConfirmationTextEditingController;

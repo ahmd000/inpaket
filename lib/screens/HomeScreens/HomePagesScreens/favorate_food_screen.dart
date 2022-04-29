@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:inpaket/api/controllers/favorite_product_controller.dart';
-import 'package:inpaket/get/favorite_product_getx_controller.dart';
 import 'package:inpaket/models/favorite_product.dart';
+
 
 import 'EmbityCategory/no_favourite.dart';
 
@@ -17,17 +16,15 @@ class FavoriteFoodScreen extends StatefulWidget {
 }
 
 class _FavoriteFoodScreenState extends State<FavoriteFoodScreen> {
-  late Future<List<FavoriteProduct>> _future;
-  List<FavoriteProduct> _favrite = <FavoriteProduct>[];
 
-  FavoriteProductGetxController _favoriteProductGetxController =
-      Get.put(FavoriteProductGetxController());
+
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _future = FavoriteProductController().showFavoriteProduct();
+
   }
 
   @override
@@ -55,7 +52,7 @@ class _FavoriteFoodScreenState extends State<FavoriteFoodScreen> {
             ),
             Container(
               child: FutureBuilder<List<FavoriteProduct>>(
-                future: _future,
+                //future: _future,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<FavoriteProduct>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {

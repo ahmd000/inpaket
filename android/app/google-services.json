@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "817220619220",
+    "project_id": "inpaket-otp",
+    "storage_bucket": "inpaket-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817220619220:android:87439638fa77565d72e441",
+        "android_client_info": {
+          "package_name": "com.inpaket.inpaket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817220619220-m44gsaq623pv7p3k1f17552be32ff5ke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK8Aj7ucwKf33KhY7jA66NZirBmGCd5mU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817220619220-m44gsaq623pv7p3k1f17552be32ff5ke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
