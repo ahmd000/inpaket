@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             useInheritedMediaQuery: true,
             theme: ThemeData(
-              accentColor: mainColor,
-              primaryColor: mainColor,
+              accentColor: whiteColor,
+              primaryColor: whiteColor,
               primarySwatch: Colors.orange,
               fontFamily: "Roboto",
             ),

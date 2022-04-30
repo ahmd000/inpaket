@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../Configers/configers.dart';
 
 class OutBoardingIndicator extends StatelessWidget {
   final double marginEnd;
@@ -11,14 +14,15 @@ class OutBoardingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 20,
+    return AnimatedContainer(
+      duration: const Duration(seconds: 1),
+      margin: EdgeInsetsDirectional.only(end: marginEnd),
+      width: selected ? 25.w : 15.w,
       height: 10,
       decoration: BoxDecoration(
-        color: selected ? Colors.amber.shade900 : Colors.amber.shade300,
+        color: selected ? mainColor : lisbonBrownColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      margin: EdgeInsetsDirectional.only(end: marginEnd),
     );
   }
 }

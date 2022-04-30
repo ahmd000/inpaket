@@ -17,22 +17,12 @@ class OutBoardingContent1 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
-          TextApp(
-            text: LocaleKeys.borderTxt1.tr(),
-            fontSize: 32.sp,
-            fontWeight: FontWeight.bold,
-            fontColor: Colors.white,
-          ),
-          SizedBox(
-            height: 40.h,
-          ),
           Container(
-            height: 200.h,
+            height: 320.h,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  logoWhiteImage,
+                  outBoardingContent1,
                 ),
               ),
             ),
@@ -41,10 +31,12 @@ class OutBoardingContent1 extends StatelessWidget {
             height: 30.h,
           ),
           TextApp(
-            text: LocaleKeys.appName.tr(),
-            fontSize: 60.sp,
-            fontColor: Colors.white,
-          )
+            text: LocaleKeys.borderTxt1.tr(),
+            fontSize: 30.sp,
+            fontWeight: FontWeight.bold,
+            fontColor: blackColor,
+          ),
+
         ],
       ),
     );

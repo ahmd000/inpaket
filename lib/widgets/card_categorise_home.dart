@@ -33,7 +33,7 @@ class CardCategoriseHome extends StatelessWidget {
           ),
           Container(
             decoration: const BoxDecoration(
-              color: Color(0xffe6e9fa),
+              color: Color(0xffdec9b5),
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(15),
                   bottomLeft: Radius.circular(15)),
@@ -54,7 +54,7 @@ class CardCategoriseHome extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 18.sp,
-                      color: const Color(0xff23203F),
+                      color: const Color(0xff503e05),
                       fontWeight: FontWeight.bold,
                     ),
                   ),

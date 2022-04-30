@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: whiteColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 100.h,
+                  height: 60.h,
                 ),
                 Container(
                   height: 200.h,
@@ -116,28 +116,14 @@ class _LoginScreenState extends State<LoginScreen>
                       image:
                           DecorationImage(image: AssetImage(logoBrownImage))),
                 ),
-                SizedBox(height: 35.h),
-
-                SizedBox(
-                  height: 20.h,
-                ),
+                SizedBox(height: 50.h),
                 Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
-                            child: CountryCodePicker(
-                          onChanged: _onCountryChange,
-                          initialSelection: '+964',
-                          showCountryOnly: false,
-                          showOnlyCountryWhenClosed: false,
-                          alignLeft: false,
-                          favorite: const [
-                            '+964',
-                          ],
-                        )),
+                        /// هنا اجعل العلم والرقم داخل مربع النص وليس خارجه وضع فاصل مثل (|)
                         Expanded(
                           flex: 2,
                           child: AppTextField(
@@ -148,6 +134,17 @@ class _LoginScreenState extends State<LoginScreen>
                             errorText: _mobileErrorText,
                           ),
                         ),
+                        Expanded(
+                            child: CountryCodePicker(
+                              onChanged: _onCountryChange,
+                              initialSelection: '+964',
+                              showCountryOnly: false,
+                              showOnlyCountryWhenClosed: false,
+                              alignLeft: false,
+                              favorite: const [
+                                '+964',
+                              ],
+                            )),
                       ],
                     ),
                     Visibility(
@@ -243,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen>
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 50.h,
                 ),
                 // Visibility(
                 //     visible: otpVisibility,
@@ -253,50 +250,49 @@ class _LoginScreenState extends State<LoginScreen>
                 //       textEditingController: _otpTextController,
                 //       errorText: otpErrorText,
                 //     )),
-                SizedBox(
-                  height: 20.h,
-                ),
 
-                SizedBox(height: 24.h),
 
-                ElevatedButton(
-                  onPressed: () {
-                    if (otpVisibility) {
-                      performActivatePhone();
-                      //   verifyOTP();
-                    } else {
-                      loginWithPhone();
-                    }
-                  },
-                  // onPressed: () => performLogin(),
-                  // onPressed: () =>
-                  //     Navigator.pushReplacementNamed(context, '/home_screen'),
-                  child: TextApp(
-                    text: LocaleKeys.signIn.tr(),
-                    fontSize: 16.sp,
-                    fontColor: Colors.black,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: mainColor,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (otpVisibility) {
+                        performActivatePhone();
+                        //   verifyOTP();
+                      } else {
+                        loginWithPhone();
+                      }
+                    },
+                    // onPressed: () => performLogin(),
+                    // onPressed: () =>
+                    //     Navigator.pushReplacementNamed(context, '/home_screen'),
+                    child: TextApp(
+                      text: LocaleKeys.signIn.tr(),
+                      fontColor: blackColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 23.sp,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: mainColor,
+                      minimumSize:  Size(270.w, 50.h),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22),
+                      ),
                     ),
                   ),
                 ),
                 //     SizedBox(height: 15.h),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(15),
                   child: Center(
                     child: RichText(
                       text: TextSpan(
                           text: LocaleKeys.noAccount.tr(),
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          style: const TextStyle(color: blackColor, fontSize: 20),
                           children: <TextSpan>[
                             TextSpan(
                                 text: LocaleKeys.signUp.tr(),
                                 style: const TextStyle(
-                                    color: Colors.blueAccent, fontSize: 18),
+                                    color: Colors.blueAccent, fontSize: 20),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     Navigator.pushNamed(
@@ -306,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen>
                     ),
                   ),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 15.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [

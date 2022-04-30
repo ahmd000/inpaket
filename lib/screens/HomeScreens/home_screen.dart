@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
-            Icons.list_alt_outlined,
+            Icons.menu_rounded,
             size: 32.sp,
             color: mainColor,
           ),
@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
               activeColor: mainColor,
               iconSize: 24.sp,
               padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
-              duration: Duration(milliseconds: 800),
+              duration: const Duration(milliseconds: 800),
               tabBackgroundColor: Colors.grey.shade400,
               color: mainColor,
               tabs: [

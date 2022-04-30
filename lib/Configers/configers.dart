@@ -17,11 +17,17 @@ String verifyLogo = "assets/images/verify_logo.png";
 String banner = "assets/images/banner.png";
 String addImage = "assets/images/oo.png";
 String noData = "assets/images/noData.png";
+String outBoardingContent1 = "assets/images/out_boarding_image1.png";
+String outBoardingContent2 = "assets/images/out_boarding_image2.png";
+String outBoardingContent3 = "assets/images/out_boarding_image3.png";
 
 ///Colors
 
  Color mainColor = const Color(0xffc69c6c);
-const Color gradingColor1 = Color(0xff13110e);
+const Color shadowColor = Color(0xff866637);
+const Color lisbonBrownColor = Color(0xff503e05);
+const Color blackColor = Color(0xff13110e);
+const Color whiteColor = Colors.white;
 
 /// first time install App
  bool firstTime = true ;

@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
+import 'package:inpaket/translations/locale_keys.g.dart';
+import 'package:inpaket/widgets/text_app.dart';
 
 class OutBoardingContent3 extends StatelessWidget {
   const OutBoardingContent3({
@@ -15,18 +18,23 @@ class OutBoardingContent3 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10.h),
           Container(
             width: double.infinity,
-            height: 403.h,
+            height: 320.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.sp),
                 image: DecorationImage(
                   image: AssetImage(
-                    borderView3,
+                    outBoardingContent3,
                   ),
                 )),
-          )
+          ),
+          TextApp(
+            text: LocaleKeys.borderTxt1.tr(),
+            fontSize: 30.sp,
+            fontWeight: FontWeight.bold,
+            fontColor: blackColor,
+          ),
         ],
       ),
     );

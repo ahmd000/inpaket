@@ -30,27 +30,27 @@ class _LaunchScreenState extends State<LaunchScreen> {
     return Scaffold(
       body: Container(
         alignment: AlignmentDirectional.center,
-        color: mainColor,
+        color: whiteColor,
         child: Column(
           children: [
             SizedBox(
-              height: 214.h,
+              height: 270.h,
             ),
             Image(
               image: AssetImage(
-                logoImage,
+                logoBrownImage,
               ),
               fit: BoxFit.contain,
               width: 200.sp,
               height: 200.sp,
             ),
             SizedBox(
-              height: 100.h,
+              height: 30.h,
             ),
             TextApp(
               text: LocaleKeys.appName.tr(),
               fontSize: 60.sp,
-              fontColor: Colors.black,
+              fontColor: mainColor,
             )
           ],
         ),

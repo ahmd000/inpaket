@@ -19,24 +19,25 @@ class OutBoardingContent2 extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 10),
-          TextApp(
-            text: LocaleKeys.borderTxt2.tr(),
-            fontSize: 32.sp,
-            fontWeight: FontWeight.bold,
-            fontColor: Colors.white,
-          ),
           Container(
             width: double.infinity,
-            height: 403.h,
+            height: 320.h,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.sp),
                 image: DecorationImage(
                   image: AssetImage(
-                    borderView2,
+                    outBoardingContent2,
                   ),
                 )),
-          )
+          ),
+          TextApp(
+            text: LocaleKeys.borderTxt2.tr(),
+            // text: LocaleKeys.borderTxt2.tr(),
+            fontSize: 30.sp,
+            fontWeight: FontWeight.bold,
+            fontColor: blackColor,
+          ),
+
         ],
       ),
     );

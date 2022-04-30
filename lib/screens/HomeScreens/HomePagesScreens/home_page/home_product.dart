@@ -69,6 +69,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               textEditingController: _searchEditingController,
             ),
           ),
+          SizedBox(height: 15.h,),
           Expanded(
             child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

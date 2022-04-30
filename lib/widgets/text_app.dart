@@ -30,6 +30,7 @@ class TextApp extends StatelessWidget {
         fontWeight: fontWeight,
         fontSize: fontSize,
         color: fontColor,
+        fontFamily: 'Roboto'
       ),
 
     );
