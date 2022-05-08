@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:inpaket/Configers/configers.dart';
 import 'package:inpaket/FirebaseServices/google_sign_in_services.dart';
 import 'package:inpaket/helpers/snack_bar_helpers.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/app_text_field.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
@@ -64,7 +63,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen>
         elevation: 0,
         centerTitle: true,
         title: TextApp(
-            text: LocaleKeys.updateProfile.tr(),
+            text: "updateProfile".tr,
             fontWeight: FontWeight.bold,
             fontSize: 20.sp),
         leading: IconButton(
@@ -101,7 +100,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen>
             textEditingController: _nameTextController,
             obscureText: false,
             prefixIcon: Icons.person,
-            hint: LocaleKeys.fullName.tr(),
+            hint: "fullName".tr,
             errorText: _nameErrorText,
             textInputType: TextInputType.text,
           ),
@@ -111,7 +110,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen>
             obscureText: false,
             prefixIcon: Icons.phone,
 
-            hint: LocaleKeys.enterMobile.tr(),
+            hint: "enterMobile".tr,
             errorText: _phoneErrorText,
             textInputType: TextInputType.number,
           ),
@@ -120,7 +119,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen>
             textEditingController: _emailTextController,
             obscureText: false,
             prefixIcon: Icons.email,
-            hint: LocaleKeys.enterMobile.tr(),
+            hint: "enterMobile".tr,
             errorText: _emailErrorText,
             textInputType: TextInputType.emailAddress,
           ),
@@ -129,7 +128,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen>
             textEditingController: _cityTextController,
             obscureText: false,
             prefixIcon: Icons.location_city,
-            hint: LocaleKeys.city.tr(),
+            hint: "city".tr,
             errorText: _cityErrorText,
             textInputType: TextInputType.text,
           ),

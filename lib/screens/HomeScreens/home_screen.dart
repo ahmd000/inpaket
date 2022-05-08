@@ -1,17 +1,17 @@
-import 'package:easy_localization/src/public_ext.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:inpaket/screens/HomeScreens/HomePagesScreens/favorate_food_screen.dart';
-import 'package:inpaket/screens/HomeScreens/HomePagesScreens/profile_screen.dart';
+import 'package:inpaket/screens/HomeScreens/HomePagesScreens/favorite_screen/favorate_food_screen.dart';
+import 'package:inpaket/screens/HomeScreens/HomePagesScreens/ProfileSetting/profile_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
+import 'HomePagesScreens/drawer_dcreen/drawer_screen.dart';
 import 'HomePagesScreens/home_page/home_product.dart';
-import 'HomePagesScreens/order_food_screen.dart';
-import 'HomePagesScreens/search_screen.dart';
+import 'HomePagesScreens/orders_screen/order_food_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,37 +21,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // static TextStyle optionStyle = TextStyle(
-  //   fontSize: 16.sp,
-  //   fontWeight: FontWeight.bold,
-  //   color: Colors.black,
-  // );
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  User? user = FirebaseAuth.instance.currentUser;
+  String name = "";
+  String email = "";
+  String mobileNumber = "";
+  String imageURL = "";
 
   static final List _homeNamesScreens = [
     TextApp(
-      text: LocaleKeys.appName.tr(),
+      text: "appName".tr,
       fontSize: 20.sp,
       fontColor: mainColor,
       fontWeight: FontWeight.bold,
     ),
     TextApp(
-      text: LocaleKeys.orders.tr(),
-      fontSize: 20.sp,
-      fontColor: mainColor,
-      fontWeight: FontWeight.bold,
-    ),
-    // Text(
-    //   'Orders',
-    //   style: optionStyle,
-    // ),
-    TextApp(
-      text: LocaleKeys.favorite.tr(),
+      text: "orders".tr,
       fontSize: 20.sp,
       fontColor: mainColor,
       fontWeight: FontWeight.bold,
     ),
     TextApp(
-      text: LocaleKeys.profile.tr(),
+      text: "favorite".tr,
+      fontSize: 20.sp,
+      fontColor: mainColor,
+      fontWeight: FontWeight.bold,
+    ),
+    TextApp(
+      text: "profile".tr,
       fontSize: 20.sp,
       fontColor: mainColor,
       fontWeight: FontWeight.bold,
@@ -60,33 +58,46 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const List<Widget> _homePageScreens = <Widget>[
     MainHomeScreen(),
-   // SearchScreen(),
     OrderFoodScreen(),
     FavoriteFoodScreen(),
     ProfileScreen(),
   ];
 
-  int _page = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
-    if(FirebaseAuth.instance.currentUser != null){
+    if (FirebaseAuth.instance.currentUser != null) {
       print("uid: ${FirebaseAuth.instance.currentUser!.uid}");
-    }else{
+    } else {
       print("uid: No UID");
-
     }
-
-
-     // print(FirebaseAuth.instance.currentUser!.uid);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const DrawerWidget(),
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/search_screen");
+              },
+              icon: Icon(
+                Icons.search,
+                color: mainColor,
+              )),
+          user!= null ?  IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/cart_screen");
+              },
+              icon: Icon(
+                Icons.shopping_cart_outlined,
+                color: mainColor,
+              )):Container(),
+        ],
         leading: IconButton(
           icon: Icon(
             Icons.menu_rounded,
@@ -94,20 +105,22 @@ class _HomeScreenState extends State<HomeScreen> {
             color: mainColor,
           ),
           onPressed: () {
-            // FirebaseAuth.instance.signOut();
-            // print("Sign out Successfully") ;
-            // Navigator.pushReplacementNamed(context, "/login_screen");
+            _scaffoldKey.currentState!.openDrawer();
           },
         ),
-        title: _homeNamesScreens.elementAt(_page),
+        title: _homeNamesScreens.elementAt(page),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
-      body: Container(
-        // color: Colors.blueAccent,
-        child: _homePageScreens.elementAt(_page),
-      ),
+      body: isLoading == false
+          ? Container(
+              // color: Colors.blueAccent,
+              child: _homePageScreens.elementAt(page),
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -135,25 +148,25 @@ class _HomeScreenState extends State<HomeScreen> {
               tabs: [
                 GButton(
                   icon: Icons.home,
-                  text: LocaleKeys.appName.tr(),
+                  text: "appName".tr,
                 ),
                 GButton(
                   icon: Icons.store,
-                  text: LocaleKeys.orders.tr(),
+                  text: "orders".tr,
                 ),
                 GButton(
                   icon: Icons.favorite,
-                  text: LocaleKeys.favorite.tr(),
+                  text: "favorite".tr,
                 ),
                 GButton(
                   icon: Icons.person,
-                  text: LocaleKeys.profile.tr(),
+                  text: "profile".tr,
                 ),
               ],
-              selectedIndex: _page,
+              selectedIndex: page,
               onTabChange: (index) {
                 setState(() {
-                  _page = index;
+                  page = index;
                 });
               },
             ),

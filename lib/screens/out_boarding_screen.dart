@@ -1,17 +1,14 @@
-import 'package:easy_localization/src/public_ext.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:inpaket/FirebaseServices/google_sign_in_services.dart';
-import 'package:inpaket/prefs/shared_pref_controller.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
+
 import 'package:inpaket/widgets/out_boarding_contents/out_boarding_content1.dart';
 import 'package:inpaket/widgets/out_boarding_contents/out_boarding_content2.dart';
 import 'package:inpaket/widgets/out_boarding_contents/out_boarding_content3.dart';
 import 'package:inpaket/widgets/out_boarding_indicator.dart';
 import 'package:inpaket/widgets/text_app.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class OutBoardingScreen extends StatefulWidget {
   const OutBoardingScreen({Key? key}) : super(key: key);
@@ -61,7 +58,7 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
                     curve: Curves.easeInOut,
                   ),
               child: TextApp(
-                text: LocaleKeys.skip.tr(),
+                text: "skip".tr,
                 fontColor: shadowColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 20.sp,
@@ -156,14 +153,12 @@ class _OutBoardingScreenState extends State<OutBoardingScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ElevatedButton(
               onPressed: () {
-                if (FirebaseAuth.instance.currentUser?.uid != null) {
+
                   Navigator.pushReplacementNamed(context, '/home_screen');
-                } else {
-                  Navigator.pushReplacementNamed(context, '/login_screen');
-                }
+
               },
               child: TextApp(
-                text: LocaleKeys.start.tr(),
+                text: "start".tr,
                 fontColor: blackColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 25.sp,

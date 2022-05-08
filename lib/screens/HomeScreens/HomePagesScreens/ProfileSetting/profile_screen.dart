@@ -1,15 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/src/public_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/helpers/buttom_sheet_helper.dart';
+import 'package:inpaket/localize_app/localize_controller.dart';
 import 'package:inpaket/prefs/shared_pref_controller.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -28,55 +26,42 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
   String email = "";
   String mobileNumber = "";
   String imageURL = "";
-  // FirebaseService? _firebaseService;
   User? user = FirebaseAuth.instance.currentUser;
   bool isSwitched = false;
   late Position position;
 
-  getLocation() async {
+  Future getLocation() async {
     LocationPermission permission;
     permission = await Geolocator.checkPermission();
     permission = await Geolocator.requestPermission();
     position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.bestForNavigation);
 
     print("latitude: ${position.latitude}");
     print("longitude: ${position.longitude}");
 
     List<Placemark> placemarks =
+        // await placemarkFromCoordinates(31.5317683, 34.4988577);
         await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks.toString());
-
     setState(() {
-      country = placemarks[0].country ?? LocaleKeys.unKnown.tr();
-      postalCode = placemarks[0].postalCode ?? LocaleKeys.unKnown.tr();
-      locality = placemarks[0].locality ?? LocaleKeys.unKnown.tr();
+      country =
+          placemarks[0].country != "" ? placemarks[0].country! : "unKnown".tr;
+      postalCode = placemarks[0].postalCode != ""
+          ? placemarks[0].postalCode!
+          : "unKnown".tr;
+      locality =
+          placemarks[0].locality != "" ? placemarks[0].locality! : "unKnown".tr;
     });
-  }
 
-  getUserData() async {
-    FirebaseFirestore.instance
-        .collection(user!.uid)
-        .snapshots()
-        .listen((event) {
-      for (var element in event.docs) {
-        setState(() {
-          name = element.data()["name"];
-          email = element.data()["email"];
-          mobileNumber = element.data()["mobile_number"];
-          imageURL = element.data()["image_url"];
-          print("User Info: ${element.data()['mobile_number']}");
-        });
-      }
-    });
+    return placemarks[0];
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getLocation();
-    getUserData();
+    getLocation(); //getUserData();
   }
 
   @override
@@ -87,49 +72,47 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
         padding: EdgeInsets.symmetric(horizontal: 16.sp),
         child: ListView(
           children: [
-            Container(
-              child: Row(
-                children: [
-                  user!.photoURL != null
-                      ? CircleAvatar(
-                          backgroundImage: NetworkImage("${user!.photoURL}"),
-                          minRadius: 30.sp,
-                          maxRadius: 50.sp,
-                        )
-                      : CircleAvatar(
-                          minRadius: 30.sp,
-                          maxRadius: 50.sp,
-                          child: Image(image: AssetImage(profileImage)),
-                        ),
-                  SizedBox(
-                    width: 24.w,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextApp(
-                          text: user!.phoneNumber != null
-                              ? "${user!.phoneNumber}"
-                              : LocaleKeys.appName.tr(),
-                          fontSize: 24.sp,
-                          fontColor: Colors.black,
-                          fontWeight: FontWeight.bold),
-                      user!.displayName != null
-                          ? TextApp(
-                              text: "${user!.displayName}",
-                              fontSize: 14.sp,
-                              fontColor: Color(0xff8B8989),
-                              fontWeight: FontWeight.bold)
-                          : TextApp(
-                              text: "",
-                              fontSize: 14.sp,
-                              fontColor: Color(0xff8B8989),
-                              fontWeight: FontWeight.bold),
-                    ],
-                  )
-                ],
-              ),
+            Row(
+              children: [
+                user!.photoURL != null
+                    ? CircleAvatar(
+                        backgroundImage: NetworkImage("${user!.photoURL}"),
+                        minRadius: 30.sp,
+                        maxRadius: 50.sp,
+                      )
+                    : CircleAvatar(
+                        minRadius: 30.sp,
+                        maxRadius: 50.sp,
+                        child: Image(image: AssetImage(profileImage)),
+                      ),
+                SizedBox(
+                  width: 24.w,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextApp(
+                        text: user!.phoneNumber != null
+                            ? "${user!.phoneNumber}"
+                            : "appName".tr,
+                        fontSize: 24.sp,
+                        fontColor: Colors.black,
+                        fontWeight: FontWeight.bold),
+                    user!.displayName != null
+                        ? TextApp(
+                            text: "${user!.displayName}",
+                            fontSize: 14.sp,
+                            fontColor: const Color(0xff8B8989),
+                            fontWeight: FontWeight.bold)
+                        : TextApp(
+                            text: "",
+                            fontSize: 14.sp,
+                            fontColor: const Color(0xff8B8989),
+                            fontWeight: FontWeight.bold),
+                  ],
+                )
+              ],
             ),
             SizedBox(
               height: 40.h,
@@ -137,8 +120,8 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
             Container(
               alignment: AlignmentDirectional.centerStart,
               child: TextApp(
-                text: LocaleKeys.settingPanel.tr(),
-                fontColor: Color(0xff8B8989),
+                text: "settingPanel".tr,
+                fontColor: const Color(0xff8B8989),
                 fontSize: 15.sp,
               ),
             ),
@@ -149,10 +132,10 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               onTap: () {
                 locationDetailButtonSheet(context);
               },
-              leading: Icon(Icons.location_on),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.location_on),
+              trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                  text: LocaleKeys.location.tr(),
+                  text: "location".tr,
                   textAlign: TextAlign.start,
                   fontSize: 15.sp,
                   fontColor: Colors.black,
@@ -164,10 +147,10 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               indent: 30.sp,
             ),
             ListTile(
-              leading: Icon(Icons.payment),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.payment),
+              trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                  text: LocaleKeys.payment.tr(),
+                  text: "payment".tr,
                   textAlign: TextAlign.start,
                   fontSize: 15.sp,
                   fontColor: Colors.black,
@@ -182,10 +165,10 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               onTap: () {
                 Navigator.pushNamed(context, "/update_profile");
               },
-              leading: Icon(Icons.info_outline),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.info_outline),
+              trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                text: LocaleKeys.updateProfile.tr(),
+                text: "updateProfile".tr,
                 textAlign: TextAlign.start,
                 fontSize: 15.sp,
                 fontColor: Colors.black,
@@ -201,10 +184,10 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               onTap: () {
                 Navigator.pushNamed(context, "/change_password");
               },
-              leading: Icon(Icons.security),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.security),
+              trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                text: LocaleKeys.changePassword.tr(),
+                text: "changePassword".tr,
                 // "Change Password",
 
                 fontSize: 15.sp,
@@ -222,10 +205,10 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               onTap: () {
                 languageButtonSheet(context);
               },
-              leading: Icon(Icons.language),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.language),
+              trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                text: LocaleKeys.language.tr(),
+                text: "language".tr,
                 fontSize: 15.sp,
                 fontColor: Colors.black,
                 textAlign: TextAlign.start,
@@ -243,8 +226,8 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
             Container(
               alignment: AlignmentDirectional.centerStart,
               child: TextApp(
-                text: LocaleKeys.notification.tr(),
-                fontColor: Color(0xff8B8989),
+                text: "notification".tr,
+                fontColor: const Color(0xff8B8989),
                 fontSize: 15.sp,
               ),
             ),
@@ -257,7 +240,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
                       Icons.notifications_active,
                       color: mainColor,
                     )
-                  : Icon(Icons.notifications),
+                  : const Icon(Icons.notifications),
               trailing: Switch(
                 onChanged: (bool value) {
                   setState(() {
@@ -269,8 +252,8 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               title: TextApp(
                 text: isSwitched == true
-                    ? LocaleKeys.activeNotification.tr()
-                    : LocaleKeys.disActiveNotification.tr(),
+                    ? "activeNotification".tr
+                    : "disActiveNotification".tr,
                 fontSize: 15.sp,
                 fontColor: Colors.black,
                 textAlign: TextAlign.start,
@@ -285,8 +268,8 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
             Container(
               alignment: AlignmentDirectional.centerStart,
               child: TextApp(
-                text: LocaleKeys.signOut.tr(),
-                fontColor: Color(0xff8B8989),
+                text: "signOut".tr,
+                fontColor: const Color(0xff8B8989),
                 fontSize: 15.sp,
               ),
             ),
@@ -306,7 +289,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               leading: const Icon(Icons.logout_sharp),
               trailing: const Icon(Icons.navigate_next),
               title: TextApp(
-                text: LocaleKeys.signOut.tr(),
+                text: "signOut".tr,
                 fontSize: 15.sp,
                 fontColor: Colors.black,
                 textAlign: TextAlign.start,
@@ -327,7 +310,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
   void languageButtonSheet(BuildContext context) {
     showButtonSheet(
         context: context,
-        title: "",
+        title: "language".tr,
         content: Column(
           children: [
             SizedBox(
@@ -336,7 +319,9 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
             ListTile(
               onTap: () async {
                 Navigator.pop(context);
-                await context.setLocale(Locale('ar'));
+                // await context.setLocale(Locale('ar'));
+
+                LocalizeController().changeLocale("ar");
               },
               iconColor: Colors.white,
               tileColor: mainColor,
@@ -346,7 +331,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.arabic.tr(),
+                text: "arabic".tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -356,13 +341,12 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
                 textAlign: TextAlign.start,
               ),
             ),
-            SizedBox(
-              height: 20.sp,
-            ),
+            SizedBox(height: 20.sp),
             ListTile(
               onTap: () async {
                 Navigator.pop(context);
-                await context.setLocale(const Locale('en'));
+                LocalizeController().changeLocale("en");
+                //await context.setLocale(const Locale('en'));
               },
               iconColor: Colors.white,
               tileColor: mainColor,
@@ -372,7 +356,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.english.tr(),
+                text: "english".tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -382,13 +366,11 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
                 textAlign: TextAlign.start,
               ),
             ),
-            SizedBox(
-              height: 20.sp,
-            ),
+            SizedBox(height: 20.sp),
             ListTile(
               onTap: () async {
                 Navigator.pop(context);
-               // await context.setLocale(const Locale('tr'));
+                // LocalizeController().changeLocale("tu");
               },
               iconColor: Colors.white,
               tileColor: mainColor,
@@ -398,7 +380,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.turkish.tr(),
+                text: "turkish".tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -408,13 +390,11 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
                 textAlign: TextAlign.start,
               ),
             ),
-            SizedBox(
-              height: 20.sp,
-            ),
+            SizedBox(height: 20.sp),
             ListTile(
               onTap: () async {
                 Navigator.pop(context);
-             //   await context.setLocale(const Locale('ku'));
+                // LocalizeController().changeLocale("ku");
               },
               iconColor: Colors.white,
               tileColor: mainColor,
@@ -424,7 +404,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.kurdish.tr(),
+                text: "kurdish".tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -456,7 +436,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.country.tr(),
+                text: country.tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -478,7 +458,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.locality.tr(),
+                text: locality.tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -500,7 +480,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
               ),
               focusColor: mainColor,
               title: TextApp(
-                text: LocaleKeys.postalCode.tr(),
+                text: postalCode.tr,
                 textAlign: TextAlign.start,
                 fontColor: Colors.white,
               ),
@@ -527,7 +507,7 @@ class _ProfileScreenState extends State<ProfileScreen> with buttonSheetHelper {
                 ),
               ),
               child: TextApp(
-                text: LocaleKeys.update.tr(),
+                text: "update".tr,
                 fontColor: Colors.white,
                 fontSize: 30.sp,
               ),

@@ -12,11 +12,10 @@ import 'package:inpaket/widgets/app_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:inpaket/widgets/code_text_field.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 import 'package:inpaket/widgets/text_app.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
-import 'package:easy_localization/src/public_ext.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -129,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen>
                           child: AppTextField(
                             textEditingController: _mobileTextController,
                             prefixIcon: Icons.phone,
-                            hint: LocaleKeys.enterMobile.tr(),
+                            hint: "enterMobile".tr,
                             textInputType: TextInputType.number,
                             errorText: _mobileErrorText,
                           ),
@@ -227,8 +226,9 @@ class _LoginScreenState extends State<LoginScreen>
                                       _sixthCodeTextController,
                                   focusNode: _sixthFocusNode,
                                   onChanged: (value) {
-                                    if (value.isEmpty)
+                                    if (value.isEmpty) {
                                       _fifthFocusNode.requestFocus();
+                                    }
                                   },
                                 ),
                               ),
@@ -266,7 +266,7 @@ class _LoginScreenState extends State<LoginScreen>
                     // onPressed: () =>
                     //     Navigator.pushReplacementNamed(context, '/home_screen'),
                     child: TextApp(
-                      text: LocaleKeys.signIn.tr(),
+                      text: "signIn".tr,
                       fontColor: blackColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 23.sp,
@@ -282,15 +282,15 @@ class _LoginScreenState extends State<LoginScreen>
                 ),
                 //     SizedBox(height: 15.h),
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Center(
                     child: RichText(
                       text: TextSpan(
-                          text: LocaleKeys.noAccount.tr(),
+                          text: "noAccount".tr,
                           style: const TextStyle(color: blackColor, fontSize: 20),
                           children: <TextSpan>[
                             TextSpan(
-                                text: LocaleKeys.signUp.tr(),
+                                text: "signUp".tr,
                                 style: const TextStyle(
                                     color: Colors.blueAccent, fontSize: 20),
                                 recognizer: TapGestureRecognizer()

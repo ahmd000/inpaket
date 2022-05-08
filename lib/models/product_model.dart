@@ -5,7 +5,7 @@ class ProductModel {
   late String price;
   late String image;
   late String quantity;
-  late dynamic overalRate;
+  late double overalRate;
 
   ProductModel({
     required this.id,

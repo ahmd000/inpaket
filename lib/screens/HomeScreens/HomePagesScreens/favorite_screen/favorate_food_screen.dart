@@ -6,7 +6,7 @@ import 'package:inpaket/Configers/configers.dart';
 import 'package:inpaket/models/favorite_product.dart';
 
 
-import 'EmbityCategory/no_favourite.dart';
+import '../EmbityCategory/no_favourite.dart';
 
 class FavoriteFoodScreen extends StatefulWidget {
   const FavoriteFoodScreen({Key? key}) : super(key: key);

@@ -1,17 +1,27 @@
 import 'package:get/get.dart';
+import 'package:inpaket/Configers/configers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefController extends GetxController {
   late SharedPreferences sharedPref;
+
+  bool firstTimeOpen = true;
   Future<SharedPrefController> init() async {
     sharedPref = await SharedPreferences.getInstance();
     return this;
   }
 
-
   Future<bool> clear() async {
     return await sharedPref.clear();
   }
+
+  // Future<bool> setFirstTimeOpen() async {
+  //   return await sharedPref.setBool('firstTimeOpen', firstTimeOpen);
+  // }
+
+  // Future getFirstTimeOpen() async {
+  //   return await sharedPref.get('firstTimeOpen');
+  // }
 }
 
 // class SharedPrefController {

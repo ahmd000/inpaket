@@ -1,10 +1,9 @@
-import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:inpaket/FirebaseServices/google_sign_in_services.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
+
+import 'package:inpaket/prefs/shared_pref_controller.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
 class LaunchScreen extends StatefulWidget {
@@ -15,13 +14,27 @@ class LaunchScreen extends StatefulWidget {
 }
 
 class _LaunchScreenState extends State<LaunchScreen> {
+  final SharedPrefController _shPref = SharedPrefController();
+  getFirstTimeOpen() {
+    // _shPref.getFirstTimeOpen();
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getFirstTimeOpen();
     Future.delayed(const Duration(seconds: 3), () {
-       Navigator.pushReplacementNamed(context, '/out_boarding_screen') ;
-
+      if (_shPref.firstTimeOpen == true) {
+        Navigator.pushReplacementNamed(context, '/out_boarding_screen');
+        setState(() {
+          _shPref.firstTimeOpen = false;
+          _shPref.sharedPref.setBool("firstTimeOpen", true);
+          print("is First Time: ${_shPref.firstTimeOpen}");
+        });
+      } else {
+        Navigator.pushReplacementNamed(context, '/home_screen');
+      }
     });
   }
 
@@ -48,7 +61,7 @@ class _LaunchScreenState extends State<LaunchScreen> {
               height: 30.h,
             ),
             TextApp(
-              text: LocaleKeys.appName.tr(),
+              text: "appName".tr,
               fontSize: 60.sp,
               fontColor: mainColor,
             )

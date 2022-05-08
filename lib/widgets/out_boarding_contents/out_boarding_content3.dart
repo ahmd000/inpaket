@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:inpaket/Configers/configers.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/text_app.dart';
 
 class OutBoardingContent3 extends StatelessWidget {
@@ -30,7 +29,7 @@ class OutBoardingContent3 extends StatelessWidget {
                 )),
           ),
           TextApp(
-            text: LocaleKeys.borderTxt1.tr(),
+            text:"borderTxt1".tr,
             fontSize: 30.sp,
             fontWeight: FontWeight.bold,
             fontColor: blackColor,

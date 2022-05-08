@@ -3,9 +3,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:inpaket/Configers/configers.dart';
 import 'package:inpaket/models/product_model.dart';
-import 'package:inpaket/translations/locale_keys.g.dart';
 import 'package:inpaket/widgets/text_app.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get_utils/src/extensions/internacionalization.dart';
 
 class DetailProductScreen extends StatefulWidget {
   const DetailProductScreen({Key? key, required this.product})
@@ -89,7 +88,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                     Row(
                       children: [
                         TextApp(
-                          text: widget.product.overalRate,
+                          text: "${widget.product.overalRate}",
                           fontSize: 20.sp,
                           fontColor: const Color(0xff716F87),
                           fontWeight: FontWeight.w600,
@@ -99,7 +98,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                         ),
                         Icon(
                           Icons.star,
-                          color: mainColor,
+                          color: Colors.amber,
                           size: 24.w,
                         ),
                       ],
@@ -112,7 +111,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   children: [
                     Expanded(
                       child: TextApp(
-                        text: LocaleKeys.price.tr(),
+                        text: "price".tr,
                         textAlign: TextAlign.start,
                         fontSize: 19.sp,
                         fontColor: const Color(0xff23203F),
@@ -133,7 +132,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextApp(
-                      text: '${LocaleKeys.quantity.tr()}',
+                      text: '${"quantity".tr}',
                       fontSize: 20.sp,
                       fontColor: const Color(0xff23203F),
                       fontWeight: FontWeight.w600,
@@ -151,7 +150,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextApp(
-                      text: LocaleKeys.rate.tr(),
+                      text: "rate".tr,
                       fontSize: 20.sp,
                       fontColor: const Color(0xff23203F),
                       fontWeight: FontWeight.w600,
@@ -168,7 +167,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                       updateOnDrag: true,
                       itemBuilder: (context, _) => Icon(
                         _selectedIcon ?? Icons.star,
-                        color: mainColor,
+                        color: Colors.amber,
                       ),
                       onRatingUpdate: (rating) {
                         // RateProductApiController().rateProduct(
@@ -192,7 +191,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextApp(
-                      text: '${LocaleKeys.itemDescription.tr()}:',
+                      text: '${"itemDescription".tr}:',
                       textAlign: TextAlign.center,
                       fontSize: 20.sp,
                       fontColor: const Color(0xff23203F),
